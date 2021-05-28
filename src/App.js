@@ -1,16 +1,26 @@
 import React from 'react';
 
-function ComponenteFuncional() {
-  return (
-    <h1>Hello</h1>
-  )
-}
-
 class App extends React.Component {
+  state = {
+    nome: ''
+  }
+
+  modificarNome = (event) => {
+    this.setState({
+      nome: event.target.value
+    })
+  }
+
   render(){
     return (
-      <h1>Hello From App</h1>
-    )
+      /* Outras opções para retornar vários nós */
+      /* React.Fragment div */
+      <>  
+      <input type="text" value={this.state.nome} onChange={this.modificarNome} />
+      <h1>Hello {this.state.nome} </h1>
+      </> 
+      /* /React.Fragment /div */
+     )
   }
 }
 

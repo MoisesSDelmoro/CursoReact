@@ -1,17 +1,11 @@
 import React from 'react';
 
-class App extends React.Component {
-  state = {
-    nome: ''
-  }
+function App (props) {
 
-  modificarNome = (event) => {
-    this.setState({
-      nome: event.target.value
-    })
-  }
-
-  criaComboBox = () => {
+  const modificarNome = event => {
+    console.log(event.target.value)
+  }  
+  const criaComboBox = () => {
     const opcoes = ["Moises", "Delmoro", "Santos"]
     const comboBoxOpcoes = opcoes.map(opcao=><option>{opcao}</option>)
 
@@ -22,17 +16,16 @@ class App extends React.Component {
     )
   }
 
-  render(){
-    const MeuComboBox = () => this.criaComboBox()
-
+    const MeuComboBox = () => criaComboBox()
+    
     return (
       <>
-      <input type="text" value={this.state.nome} onChange={this.modificarNome} />
-      <h1>Hello {this.props.nome} </h1>
+      <input type="text" value={props.nome} onChange={modificarNome} />
+      <h1>Hello {props.nome} </h1>
       <MeuComboBox />
       </>
+    
     )
-  }
 }
 
 export default App;

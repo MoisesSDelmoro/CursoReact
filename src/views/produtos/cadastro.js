@@ -1,16 +1,23 @@
 import React from 'react';
+import ProdutosService from "/home/moisesdelmoro/CursoReact/src/views/app/produtoService";
 
 const estadoInicial = {
     nome: '',
     sku:'',
     descricao: '',
     preco: 0,
-    fornecedor: ''
+    fornecedor: '',
+    sucesso: false
 }
 
 export default class CadastroProduto extends React.Component {
 
     state = estadoInicial
+
+    constructor(){  
+        super()
+        this.service = new ProdutosService();
+    }   
 
     onChange = (event) => {
         const valor = event.target.value
@@ -19,7 +26,16 @@ export default class CadastroProduto extends React.Component {
     } 
 
     onSubmit = (event) => {
-        console.log(this.state)
+        const produto = {
+            nome: this.state.nome,
+            sku: this.state.sku,
+            descricao: this.state.descricao,
+            preco: this.state.preco,
+            fornecedor: this.state.fornecedor
+        }
+        this.service.salvar(produto)
+        this.limparCampos()
+        this.setState({sucesso: true})
     }
 
     limparCampos = () => {
@@ -33,6 +49,19 @@ export default class CadastroProduto extends React.Component {
                     Cadastro de Produto
                 </div>
                 <div className="card-body">
+                    
+                    { this.state.sucesso ?
+                        (
+                            <div class="alert alert-dismissible alert-success">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <strong>Excelente!</strong> <a href="#" class="alert-link">Cadastro realizado com sucesso!</a>.
+                            </div>
+                        ) : (
+                            <></>
+                        )
+                    }
+                    
+
                     <div className="row">
                         <div className="col-md-6">
                             <div className="from-group">
